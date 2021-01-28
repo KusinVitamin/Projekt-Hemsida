@@ -1,0 +1,8 @@
+#!/usr/bin/expect -f
+set timeout -1
+spawn ./Xilinx/xsetup -b AuthTokenGen
+expect "E-mail Address:"
+send -- "<EMAIL-ADDRESS>\r"
+expect "Password:"
+send -- "<PASSWORD>\r"
+expect eof
