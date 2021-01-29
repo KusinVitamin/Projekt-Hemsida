@@ -1,55 +1,27 @@
-----------------------------------------------------------------------------------
--- Company: LTU
--- Engineer: Rickard Bemm
--- 
--- Create Date: 29.04.2019 13:35:44
--- Design Name: 
--- Module Name: Part1_tb - Behavioral
--- Project Name: Lab 3a
--- Target Devices: 
--- Tool Versions: 
--- Description:  part 1
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
-
 
 library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.std_logic_1164.all;
 
-entity Arith is
-    Port ( A : in STD_LOGIC_VECTOR(3 downto 0);
-           B : in STD_LOGIC_VECTOR(3 downto 0);
-           SUB : in STD_LOGIC;
-           R : out STD_LOGIC_VECTOR(3 downto 0);
-           V : out STD_LOGIC;
-           C : out STD_LOGIC);
-end Arith;
+entity ARITH is
+  port(A,B: in std_logic_vector	(3 downto 0);
+	   Sub : in STD_LOGIC;
+       R: out std_logic_vector (3 downto 0);
+	   V,C : out STD_LOGIC);
+end entity ARITH;
 
-architecture Behavioral of Arith is
 
-    component Adder port (
-        A : in STD_LOGIC_VECTOR(3 downto 0);
-        B : in STD_LOGIC_VECTOR(3 downto 0);
-        C_in : in STD_LOGIC;
-        R :  out STD_LOGIC_VECTOR(3 downto 0);
-        V : out STD_LOGIC;
-        C_out :  out STD_LOGIC
-    );
-    end component;
-
-    signal b_sub : STD_LOGIC_VECTOR(3 downto 0);
+architecture beteende of ARITH is
+	COMPONENT ADDER port(A,B : in std_logic_vector (3 downto 0);
+	Cin: in STD_LOGIC;
+	R: out std_logic_vector(3 downto 0);
+	V,C: out STD_LOGIC); END COMPONENT;
+    signal xor1:STD_LOGIC_VECTOR (3 downto 0);
 begin
-    b_sub(0) <= B(0) xor SUB;
-    b_sub(1) <= B(1) xor SUB;
-    b_sub(2) <= B(2) xor SUB;
-    b_sub(3) <= B(3) xor SUB;
-    
-    Adder_instance: Adder port map (A => A, B => b_sub, C_in => SUB, R => R, V => V, C_out => C);
+	xor1(0) <= Sub xor B(0);
+	xor1(1) <= Sub xor B(1);
+	xor1(2) <= Sub xor B(2);
+	xor1(3) <= Sub xor B(3);
+	A1:	ADDER PORT MAP(A => A, B => xor1, Cin => Sub, R => R, C => C, V => V);
+end architecture beteende;
 
-end Behavioral;
+

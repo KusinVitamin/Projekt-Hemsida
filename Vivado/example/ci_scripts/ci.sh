@@ -8,7 +8,7 @@ PROJ_DIR=$(readlink -f "${PROJ_DIR}")
 cd "${PROJ_DIR}"
 
 # vivado environment
-source "/data/Xilinx/Vivado/2019.2/settings64.sh"
+source "/tools/Xilinx/Vivado/2020.2/settings64.sh"
 
 # prep & run
 "${PROJ_DIR}/ci_scripts/run.sh"
