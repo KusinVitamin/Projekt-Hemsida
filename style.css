@@ -223,3 +223,14 @@ a.article:hover {
         display: none;
     }
 }
+
+
+
+.table-item{
+    cursor:pointer;
+
+}
+
+.table-item:hover{
+    text-decoration: underline;
+}
