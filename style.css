@@ -224,7 +224,9 @@ a.article:hover {
     }
 }
 
-
+/* ---------------------------------------------------
+    TABLES
+----------------------------------------------------- */
 
 .table-item{
     cursor:pointer;
@@ -234,3 +236,24 @@ a.article:hover {
 .table-item:hover{
     text-decoration: underline;
 }
+
+
+/* ---------------------------------------------------
+    BUTTONS
+----------------------------------------------------- */
+
+.submit{
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  margin-left: -600%;
+  cursor: pointer;
+  background-color: #133756;
+    
+}
+
