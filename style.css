@@ -160,8 +160,14 @@ a.article:hover {
     padding: 10px;
 }
 
+.card-title{
+    font-weight: bold;
+    font-size: 15px
+}
 
-
+.card-text{
+    font-weight: 600;
+}
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -172,6 +178,7 @@ a.article:hover {
     min-height: 100vh;
     transition: all 0.3s;
 }
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -255,5 +262,33 @@ a.article:hover {
   cursor: pointer;
   background-color: #133756;
     
+}
+
+.assignment{
+border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  margin-left: -400%;
+  cursor: pointer;
+  background-color: #133756;
+}
+
+.course{
+border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  margin-left: -300%;
+  cursor: pointer;
+  background-color: #133756;
 }
 
