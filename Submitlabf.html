@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Labbrättning</title>
+
+         <!-- Bootstrap CSS CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+        <!-- Our Custom CSS -->
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+
+
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>LTU</h3>
+
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-user"></i>
+                            Account
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Hemsida.html">
+                            <i class="glyphicon glyphicon-th-large"></i>
+                            Dashboard
+                        </a>
+                        <a href="#">
+                            <i class="glyphicon glyphicon-book"></i>
+                            Courses
+                        </a>
+                    </li>
+
+                    </li>
+                </ul>
+
+            </nav>
+
+            <!-- Page Content Holder -->
+            <div id="content">
+
+                <nav class="navbar navbar-default">
+                    <h1>Buffer Overflow</h1>
+                      <form class="form-inline">
+                      <button class= "button submit">Submit</button>
+                      <button class= "button newtest">Change testfile</button>   
+                      </form>
+                </nav>
+                
+                
+            <div class="card w-75">
+                <div class="card-header">
+                Results
+            </div>
+            <div class="card-body">
+                <p class="card-text2"><i class="glyphicon glyphicon-remove"></i> Test Failed!</p>
+                <p class="card-text2"># The result of Bounce2 is incorrect</p>
+                <p class="card-text2"># Error Code 2</p>
+            </div>
+        </div>
+
+
+            </div> <!-- Content -->
+        </div> <!-- Wrapper -->
+
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded". () =>{
+               const row = document.querySelectorAll("td[data-href]");
+
+                rows.forEach(row => {
+                    row.addEventListener("click", () => {
+                        window.location.href = row.dataset.href;
+                    });
+                });
+            });
+
+    </script>
+    <script>
+        $(document).ready(function($) {
+        $(".table-item").click(function() {
+            window.document.location = $(this).data("href");
+        });
+        });
+    </script>
+        <!-- jQuery CDN -->
+         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+         <!-- Bootstrap Js CDN -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    </body>
+</html>
