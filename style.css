@@ -152,7 +152,7 @@ a.article:hover {
 }
 
 /* ---------------------------------------------------
-    Course Cards STYLE
+    Cards STYLE
 ----------------------------------------------------- */
 
 .card{
@@ -168,6 +168,23 @@ a.article:hover {
 .card-text{
     font-weight: 600;
 }
+
+.card-text2{
+    font-weight: 600;
+    color: black;
+}
+
+
+.card-header {
+    font-size: 20px;
+    font-weight: bold;
+    
+}
+
+
+.card-body{
+    
+}
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -178,6 +195,8 @@ a.article:hover {
     min-height: 100vh;
     transition: all 0.3s;
 }
+
+
 
 
 /* ---------------------------------------------------
@@ -304,5 +323,18 @@ border: none;
   margin-left: -300%;
   cursor: pointer;
   background-color: #133756;
+}
+
+
+/* ---------------------------------------------------
+    Glyphicon
+----------------------------------------------------- */
+
+.glyphicon-ok { 
+    color: green;
+}
+
+.glyphicon-remove { 
+    color: red;
 }
 
