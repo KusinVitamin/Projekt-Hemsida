@@ -1,0 +1,9 @@
+---
+name: Empty issue
+about: 
+---
+
+# Att göra
+1. - [ ] ...
+2. - [ ] ...
+3. - [ ] ...
