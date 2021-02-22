@@ -1,6 +1,6 @@
 ---
 name: Empty issue
-about: 
+about: This template provides a basic structure for issues
 ---
 
 # Att göra
