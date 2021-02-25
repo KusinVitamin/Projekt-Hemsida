@@ -1,0 +1,3 @@
+FROM d0020e_xilinx:vivado
+
+CMD "/root/src/ci_scripts/ci.sh"
