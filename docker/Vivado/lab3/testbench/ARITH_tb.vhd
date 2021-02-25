@@ -46,8 +46,8 @@ begin
     A <= "0111"; B <= "0010"; Sub <= '0';
     wait for PERIOD;
     assert R = "1001";
-    assert V = '1';
-    assert C = '0'; -- C=0 TEST FÖR FEL
+    assert V = '0' report "V error" severity error; -- C=1 TEST FÖR FEL;
+    assert C = '1' report "C error" severity error; -- C=0 TEST FÖR FEL;
     
     A <= "1000"; B <= "1000"; Sub <= '0';
     wait for PERIOD;

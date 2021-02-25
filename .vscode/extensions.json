@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        // Prettier support.
+        "esbenp.prettier-vscode",
+
+        // HTML CSS Support
+        "ecmel.vscode-html-css",
+
+        // Real-time collaborative development from the comfort of your favorite tools.
+        "ms-vsliveshare.vsliveshare",
+
+        // AI-assisted development
+        "visualstudioexptteam.vscodeintellicode"
+    ]
+}
