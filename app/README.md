@@ -30,10 +30,13 @@ DB_host=<HOSTNAME>
 DB_user=<USERNAME>
 DB_password=<PASSWORD>
 DB_database=<DATABASE-NAME>
+OAUTH_GOOGLE_CLIENT_ID=<CLIENT-ID>
+OAUTH_GOOGLE_CLIENT_SECRET=<CLIENT-SECRET>
+OAUTH_GOOGLE_REDIRECT=<REDIRECT-URI>
+FILEPATH_SUBMISSIONS=<FILEPATH>
 ```
 
-3. Create database schema
-
+3. Create database schema, the schema for MySQL is avaliable in `createDB.sql`.
 
 ## Usage
 Use `npm` to launch the application with node.
@@ -52,6 +55,10 @@ npm run start:dev
 .
 ├── public          # All public and static content
 ├── src             # Files used in node app
+│   ├── middleware  # Express middleware modules
+│   ├── routes      # Express routes
+│   ├── templates   # HTML templates
+│   └── utils
 ├── tests           # Unit tests
 ├── .env            # Enviroment variables
 ├── package.json
