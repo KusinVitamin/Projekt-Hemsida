@@ -17,8 +17,9 @@ CREATE TABLE IF NOT EXISTS `Submissions` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `assignment` int NOT NULL,
   `user` int NOT NULL,
-  `grade` text NOT NULL,
-  `feedback` text
+  `grade` text,
+  `feedback` text,
+  `filepath` varchar(1024) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `AllowedFileFormats` (
@@ -35,7 +36,8 @@ CREATE TABLE IF NOT EXISTS `CourseParticipants` (
 
 CREATE TABLE IF NOT EXISTS `Users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `email` varchar(512) UNIQUE
+  `username` varchar(128) UNIQUE NOT NULL,
+  `email` varchar(512) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `RoleClaims` (
