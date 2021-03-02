@@ -45,6 +45,22 @@ router.get("/:cid/:aid", async (req, res) => {
     }
 });
 
+// Get an assignment by id for a course
+// GET /courses/<cid>/<aid>
+router.get("/:cid/:aid/:sid", async (req, res) => {
+    try {
+        const sid = Number(req.params.sid);
+        const uid = 1;
+
+        const submission = await db.getSubmission(sid, uid);
+
+        res.send(submission);
+    } catch (error) {
+        console.log(error.sqlMessage);
+        res.send("Something went wrong!");
+    }
+});
+
 // Create a new course
 // POST /courses
 router.post("/", async (req, res) => {
