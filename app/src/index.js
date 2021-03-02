@@ -1,15 +1,24 @@
 const express = require("express");
 const path = require("path");
 const vivado = require("./vivado");
+const logger = require("./middleware/logger").logger;
 const methodOverride = require("method-override");
 require("dotenv").config();
 
 const app = express();
 
-// Body Parser Middleware
+// Middleware
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: false }));
+app.use((req, res, next) => logger(req, res, next, console.log));
+app.use((req, res, next) => {
+    const fs = require("fs");
+    const path = require("path");
+    logger(req, res, next, data => {
+        fs.appendFile(path.join(__dirname, "../log/http.log"), data, () => {});
+    });
+});
 
 // Some Routes
 app.get("/error", (req, res) => res.send(`<pre>${vivado.logParser("./public/simulate.log")}</pre>`));
