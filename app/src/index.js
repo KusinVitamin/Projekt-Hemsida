@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 // Routers
 app.use("/users", require("./routes/users"));
 app.use("/courses", require("./routes/courses"));
-//app.use("/assignments", require("./routes/assignments"));
+app.use("/oauth", require("./routes/oauth"));
 
 // Set static content paths
 app.use(express.static("public"));
@@ -44,4 +44,4 @@ app.use("/lcov", express.static("coverage/lcov-report"));
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => console.log(`Server started on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server started on http://127.0.0.1:${PORT}`));
