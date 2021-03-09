@@ -30,7 +30,7 @@ function getAssignments(courseId) {
 function getAssignment(courseId, assignmentId) {
     return new Promise((resolve, reject) => {
         pool.query(
-            "SELECT id, course, name, duedate FROM projectal.assignments WHERE course = ? and id = ?",
+            "SELECT id, testsuitePath, course, name, duedate FROM projectal.assignments WHERE course = ? and id = ?",
             [courseId, assignmentId],
             (error, results, fields) => {
                 if (error) reject(error);
@@ -70,7 +70,7 @@ function getSubmissions(aid, uid) {
  */
 function getSubmission(sid, uid) {
     return new Promise((resolve, reject) => {
-        const sqlQuery = `SELECT id, assignment, user, grade, feedback 
+        const sqlQuery = `SELECT id, assignment, user, grade, feedback, filepath 
             FROM projectal.submissions 
             WHERE id = ? and user = ?`;
         const params = [sid, uid];
@@ -140,7 +140,13 @@ function getAllowedFileformats(assignmentId) {
             { aid: assignmentId },
             (error, results, fields) => {
                 if (error) reject(error);
-                resolve(results);
+                if (results.length === 0) resolve([]);
+
+                var allowedFileformats = [];
+                results.forEach(row => {
+                    allowedFileformats.push(row.extension);
+                });
+                resolve(allowedFileformats);
             }
         );
     });
@@ -217,6 +223,23 @@ function getCourse(cid) {
     });
 }
 
+/**
+ *
+ * @param {string} testbench Path to testbench
+ * @returns {Promise<void>}
+ */
+function addTestbenchPathToSubmission(testbench) {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            "UPDATE projectal.submissions SET grade = ?, feedback = ? WHERE id = ?;",
+            [grad, feed, sid],
+            (error, results, fields) => {
+                if (error) reject(error);
+            }
+        );
+    });
+}
+
 //Inserts new course
 function insertCourses(name) {
     return new Promise((resolve, reject) => {
@@ -290,7 +313,7 @@ function insertSubmission(uid, aid, path) {
             [aid, uid, path],
             (error, results, fields) => {
                 if (error) reject(error);
-                resolve(results);
+                resolve(results.insertId);
             }
         );
     });
@@ -305,7 +328,7 @@ function insertSubmission(uid, aid, path) {
 function gradeSubmission(sid, grad, feed) {
     return new Promise((resolve, reject) => {
         pool.query(
-            "INSERT INTO projectal.Submissions (grade, feedback) VALUES (?,?) WHERE id=?",
+            "UPDATE projectal.submissions SET grade = ?, feedback = ? WHERE id = ?;",
             [grad, feed, sid],
             (error, results, fields) => {
                 if (error) reject(error);
