@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="google-signin-client_id" content="765517341059-3hevsctbpuv0dm2b09sjvsrp2i5i0t6l.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
 
         <title>Labbrättning</title>
 
@@ -54,8 +56,31 @@
 
                 <nav class="navbar navbar-default">
                     <h1>Dashboard</h1>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    
+                    <script>
+                        function onSignIn(googleUser){
+                        var profile = googleUser.getBasicProfile();
+                        console.log('Login');
+                        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                        console.log('Name: ' + profile.getName());
+                        console.log('Image URL: ' + profile.getImageUrl());
+                        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+                        }
+
+                    </script> 
+                    
+                    <a href="#" onclick="signOut();">Sign out</a>
+                    <script>
+                        function signOut() {
+                        var auth2 = gapi.auth2.getAuthInstance();
+                        auth2.signOut().then(function () {
+                        console.log('User signed out.');
+                    });
+                }
+                    </script>
                     <form class="form-inline">
-                      <a class= "btn btn-primary" href="AddCourse.html" role="button">Add New Course</a>
+                      <a class= "course" href="AddCourse.html" role="button">Add New Course</a>
                       </form>
                 </nav>
                 
@@ -101,10 +126,7 @@
 
             </div>
         </div>
-
-
-
-
+    
 
         <!-- jQuery CDN -->
          <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
