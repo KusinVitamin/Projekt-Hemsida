@@ -5,26 +5,30 @@ const fs = require("fs");
 /**
  *
  * @param {Request} req Http request object
- * @param {string} dest File destination with name of file and file extension, ie. "path/to/myfile.txt"
+ * @param {string} dest Destination folder where the file will be saved
  * @param {string} formFieldName Name of formfield that contains the file to save
- * @returns {Promise<void>}
+ * @returns {Promise<string>} Full path to the file, including filename
  */
-async function saveFile(req, dest, formFieldName) {
-    const form = formidable({ multiples: false });
+async function saveFile(req, dest, formFieldName, allowedFileformats) {
+    return new Promise((resolve, reject) => {
+        const form = formidable({ multiples: false });
 
-    form.parse(req, async (err, fields, files) => {
-        if (err) {
-            next(err);
-            return;
-        }
+        form.parse(req, async (err, fields, files) => {
+            if (err) {
+                next(err);
+                return;
+            }
 
-        const oldpath = files[formFieldName].path;
-        const newDirName = path.dirname(dest);
-        if (!fs.existsSync(newDirName)) {
-            await fs.promises.mkdir(newDirName, { recursive: true });
-        }
-        fs.rename(oldpath, dest, function (err) {
-            if (err) throw err;
+            const oldpath = files[formFieldName].path;
+            const oldFilename = files[formFieldName].name;
+            const savedFilePath = path.join(dest, oldFilename);
+            if (!fs.existsSync(dest)) {
+                await fs.promises.mkdir(dest, { recursive: true });
+            }
+            fs.rename(oldpath, savedFilePath, function (err) {
+                if (err) reject(err);
+                resolve(savedFilePath);
+            });
         });
     });
 }
