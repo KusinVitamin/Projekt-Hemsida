@@ -88,7 +88,7 @@ async function copyFileToVolume(containerId, src, dest) {
     if (dest === "" || dest === undefined) throw "Parameter dest must be non-empty nor undefined!";
     if (!fs.existsSync(src)) throw `File at ${src} does not exist!`;
 
-    const command = `docker cp ${src} ${containerId}:${dest}`;
+    const command = `docker cp "${src}" ${containerId}:${dest}`;
     await exec(command);
 }
 
@@ -103,7 +103,7 @@ async function copyFileFromVolume(containerId, src, dest) {
     if (dest === "" || dest === undefined) throw "Parameter dest must be non-empty nor undefined!";
     //if (!fs.existsSync(src)) throw `File at ${src} does not exist!`;
 
-    const command = `docker cp ${containerId}:${src} ${dest}`;
+    const command = `docker cp ${containerId}:${src} "${dest}"`;
     await exec(command);
 }
 
