@@ -17,8 +17,4 @@ function logParser(path) {
     return errors;
 }
 
-function sum(a, b) {
-    return a + b;
-}
-
-module.exports = { logParser, sum };
+module.exports = { logParser };
