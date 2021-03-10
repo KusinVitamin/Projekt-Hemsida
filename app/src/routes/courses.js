@@ -9,10 +9,10 @@ const path = require("path");
 router.get("/", async (req, res) => {
     try {
         const courses = await db.getCourses();
-        res.send(courses);
+        res.render("index", { courses, title: "Mina kurser" });
     } catch (error) {
         console.log(error.sqlMessage);
-        res.send("Something went wrong!");
+        res.render("error", { error: "Something went wrong!" });
     }
 });
 

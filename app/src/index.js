@@ -1,11 +1,16 @@
 const express = require("express");
 const path = require("path");
 const vivado = require("./vivado");
+const exphbs = require("express-handlebars");
 const logger = require("./middleware/logger").logger;
 const methodOverride = require("method-override");
 require("dotenv").config();
 
 const app = express();
+
+// Handlebars Middleware
+app.engine("handlebars", exphbs());
+app.set("view engine", "handlebars");
 
 // Middleware
 app.use(express.json());
