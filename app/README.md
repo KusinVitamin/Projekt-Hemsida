@@ -57,9 +57,10 @@ npm run start:dev
 ├── src             # Files used in node app
 │   ├── middleware  # Express middleware modules
 │   ├── routes      # Express routes
-│   ├── templates   # HTML templates
 │   └── utils
 ├── tests           # Unit tests
+├── views           # Handlebars views
+│   └── layouts
 ├── .env            # Enviroment variables
 ├── package.json
 └── README.md
