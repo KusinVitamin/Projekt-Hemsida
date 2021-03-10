@@ -1,56 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Labbrättning</title>
-
-         <!-- Bootstrap CSS CDN -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-
-        <!-- Our Custom CSS -->
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-
-
-
-        <div class="wrapper">
-            <!-- Sidebar Holder -->
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <h3>LTU</h3>
-
-                </div>
-
-                <ul class="list-unstyled components">
-                    <li>
-                        <a href="#">
-                            <i class="glyphicon glyphicon-user"></i>
-                            Account
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Hemsida.html">
-                            <i class="glyphicon glyphicon-th-large"></i>
-                            Dashboard
-                        </a>
-                        <a href="#">
-                            <i class="glyphicon glyphicon-book"></i>
-                            Courses
-                        </a>
-                    </li>
-
-                    </li>
-                </ul>
-
-            </nav>
-
-            <!-- Page Content Holder -->
-            <div id="content">
 
                 <nav class="navbar navbar-default">
                     <h1>Assignments</h1>
@@ -69,25 +17,25 @@
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td class = 'table-item'> <a href="Submitlab.html">Symmetric Encryption</a></td>
-                    <td>2021-05-02</td>
+                    <td class = 'table-item'> <a href="Submitlab.html">{{Labname}}</a></td>
+                    <td>{{Duedate}}</td>
                     <a href="Hemsida.html"></a>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
-                    <td class = 'table-item'><a href="Submitlabg.html">Public Encryption</a></td>
-                    <td>2021-08-14</td>
+                    <td class = 'table-item'><a href="Submitlab.html">{{Labname}}</a></td>
+                    <td>{{Duedate}}</td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td class = 'table-item'><a href="Submitlabf.html">Buffer Overflow</a></td>
-                    <td>2021-10-20</td>
+                    <td class = 'table-item'><a href="Submitlab.html">{{Labname}}</a></td>
+                    <td>{{Duedate}}</td>
                 </tr>
         </tbody>
 </table>
 
-            </div> <!-- Content -->
-        </div> <!-- Wrapper -->
+
+
 
 
 
@@ -110,11 +58,3 @@
         });
         });
     </script>
-        <!-- jQuery CDN -->
-         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-         <!-- Bootstrap Js CDN -->
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-    </body>
-</html>
