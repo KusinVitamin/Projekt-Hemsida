@@ -9,14 +9,13 @@ const fs = require("fs");
  * @param {string} formFieldName Name of formfield that contains the file to save
  * @returns {Promise<string>} Full path to the file, including filename
  */
-async function saveFile(req, dest, formFieldName, allowedFileformats) {
+async function saveFile(req, dest, formFieldName) {
     return new Promise((resolve, reject) => {
         const form = formidable({ multiples: false });
 
         form.parse(req, async (err, fields, files) => {
             if (err) {
-                next(err);
-                return;
+                reject(err);
             }
 
             const oldpath = files[formFieldName].path;

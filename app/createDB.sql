@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `Courses` (
 
 CREATE TABLE IF NOT EXISTS `Assignments` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `testsuitePath` int NOT NULL,
+  `testsuitePath` varchar(1024) NOT NULL,
   `course` int NOT NULL,
   `name` text NOT NULL,
   `duedate` datetime

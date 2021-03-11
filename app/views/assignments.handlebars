@@ -1,0 +1,23 @@
+<nav class="navbar navbar-default">
+    <h1>Assignments in {{course.name}} ({{course.code}})</h1>
+    <a class="btn btn-primary" href="/new/assignment/{{course.id}}">Add new assignment</a>
+</nav>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Submission date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each assignments }}
+        <tr>
+            <th scope="row">{{this.id}}</th>
+            <td class='table-item'> <a href="assignment/{{this.id}}">{{this.name}}</a></td>
+            <td>{{this.duedate}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

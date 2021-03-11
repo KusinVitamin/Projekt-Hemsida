@@ -1,0 +1,24 @@
+<nav class="navbar navbar-default">
+    <h1>Add an assignment</h1>
+</nav>
+<div class="row row-cols-1 row-cols-md-2 g-4 width: 18rem" ;>
+    <div class="text-danger">{{message}}</div>
+    <form method="POST" autocomplete="off">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name of the assignment">
+        </div>
+        <div class="form-group">
+            <label for="duedate">Duedate</label>
+            <input type="date" class="form-control" id="duedate" name="duedate">
+        </div>
+        <div class="form-group">
+            <label for="fileFormats">Allowed fileformats</label>
+            <input type="text" class="form-control" id="fileFormats" name="fileFormats"
+                placeholder="Example: .zip, .vhd">
+            <small class="text-hint">Seperate fileformats by comma</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3" href="#">Submit</button>
+    </form>
+</div>

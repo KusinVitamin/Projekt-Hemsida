@@ -6,6 +6,7 @@ const allowedDomains = ["student.ltu.se", "ltu.se"];
 
 router.get("/google/signin", async (req, res) => {
     const token = req.query.token;
+    req.session.uid = 1;
     if (token === undefined) {
         res.status(400);
         res.send("Bad Request: token is missing");

@@ -1,0 +1,39 @@
+<nav class="navbar navbar-default">
+    <h1>{{assignment.name}}</h1>
+    <div>
+        <a class="btn btn-primary" href="/assignment/{{assignment.id}}/submit">Submit</a>
+        <a class="btn btn-primary" href="/assignment/{{assignment.id}}/testbench/change">Change testFile</a>
+    </div>
+</nav>
+
+
+<div class="card w-75">
+    <div class="card-header">
+        Submissions
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Betyg</th>
+                <th>Status</th>
+                <th>Feedback</th>
+                <th>Inlämningsdatum</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each assignment.submissions}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.grade}}</td>
+                <td>{{this.testStatus}}</td>
+                <td>{{this.feedback}}</td>
+                <td>{{this.dateAdded}}</td>
+                <td class="link-primary">
+                    <a href="/submission/{{this.id}}">Detaljer</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

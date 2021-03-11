@@ -3,9 +3,9 @@ const fse = require("fs-extra");
 
 /**
  *
- * @param {number} aid Path to save location
+ * @param {number} aid assignmentId
  * @param {string} testbench Path to user defined testbench
- * @returns {Promise<string>}
+ * @returns {Promise<string>} Path to saved testbench
  */
 async function create(aid, testbench) {
     return new Promise(async (resolve, reject) => {
@@ -28,9 +28,9 @@ async function create(aid, testbench) {
 
 /**
  *
- * @param {number} aid
- * @param {string} testbench
- * @returns {Prmoise<string>}
+ * @param {number} aid assignmentId
+ * @param {string} testbench Path to user defined testbench
+ * @returns {Promise<string>} Path to saved testbench
  */
 async function changeTestbench(aid, testbench) {
     return new Promise(async (resolve, reject) => {
@@ -42,7 +42,7 @@ async function changeTestbench(aid, testbench) {
 
 /**
  *
- * @param {number} aid
+ * @param {number} aid assignmentId
  * @returns {Promise<void>}
  */
 async function remove(aid) {

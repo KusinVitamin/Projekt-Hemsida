@@ -1,0 +1,24 @@
+<div class="card w-75">
+    <div class="card-header">
+        Submission #{{submission.id}} of {{assignment.name}}
+    </div>
+    {{#if submission}}
+    <div>
+        {{#if submission.statusIsPending}}
+        <p>
+            Status: {{submission.testStatus}}
+        </p>
+        <p>
+            You submission will be graded shortly.
+        </p>
+        {{else}}
+        <p>
+            Grade: {{submission.grade}}
+        </p>
+        <p>
+            Feedback: {{submission.feedback}}
+        </p>
+        {{/if}}
+    </div>
+    {{/if}}
+</div>

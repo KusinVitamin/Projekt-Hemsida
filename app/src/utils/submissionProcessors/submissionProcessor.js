@@ -29,6 +29,7 @@ function extractAndValidateFile(src, allowedFileformats) {
                 return;
             }
             await extractZip(src, dir);
+            fs.rmSync(src);
         }
 
         resolve(dir);

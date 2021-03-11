@@ -23,21 +23,22 @@ function getAssignments(courseId) {
 
 /**
  * Get an assignment for course
- * @param {number} courseId
  * @param {number} assignmentId
  * @returns {Promise<{id:number, testsuitePath:string, course:number, name:string, duedate:Date} | undefined>}
  */
-function getAssignment(courseId, assignmentId) {
+function getAssignment(assignmentId) {
     return new Promise((resolve, reject) => {
         pool.query(
-            "SELECT id, testsuitePath, course, name, duedate FROM projectal.assignments WHERE course = ? and id = ?",
-            [courseId, assignmentId],
+            "SELECT id, testsuitePath, course, name, duedate FROM projectal.assignments WHERE id = ?",
+            [assignmentId],
             (error, results, fields) => {
                 if (error) reject(error);
                 if (results.length === 0) {
                     resolve(undefined);
                 } else {
-                    resolve(results[0]);
+                    let assignment = results[0];
+                    assignment.testbenchIsNull = assignment.testsuitePath === null;
+                    resolve(assignment);
                 }
             }
         );
@@ -113,7 +114,7 @@ function getCourseParticipants(cid) {
  * @param {number} courseId
  * @param {string} name
  * @param {Date} duedate
- * @returns {Promise<Boolean>} Returns true if the assignment was succesfully inserted, else an error will be thrown
+ * @returns {Promise<number>} id of inserted assignment
  */
 function insertAssignment(courseId, name, duedate) {
     const assignment = {
@@ -124,7 +125,7 @@ function insertAssignment(courseId, name, duedate) {
     return new Promise((resolve, reject) => {
         pool.query("INSERT INTO projectal.assignments SET ?", assignment, (error, results, fields) => {
             if (error) reject(error);
-            resolve(results);
+            resolve(results.insertId);
         });
     });
 }
@@ -164,7 +165,10 @@ function getAllowedFileformats(assignmentId) {
  */
 function insertAllowedFileformats(aid, format) {
     return new Promise((resolve, reject) => {
-        pool.query("INSERT INTO projectal.allowedFileformats VALUES (?,?)", [aid, format], (error, results, fields) => {
+        const query = "INSERT INTO projectal.allowedFileformats SET ?";
+        const params = { aid, extension: format };
+
+        pool.query(query, params, (error, results, fields) => {
             if (error) reject(error);
             resolve(results.insertId);
         });
@@ -238,16 +242,18 @@ function getCourse(cid) {
 
 /**
  *
+ * @param {number} aid assignmentId
  * @param {string} testbench Path to testbench
  * @returns {Promise<void>}
  */
-function addTestbenchPathToSubmission(testbench) {
+function changeTestbenchPathOfAssignment(aid, testbench) {
     return new Promise((resolve, reject) => {
         pool.query(
-            "UPDATE projectal.submissions SET grade = ?, feedback = ? WHERE id = ?;",
-            [grad, feed, sid],
+            "UPDATE projectal.assignments SET testsuitePath = ? WHERE id = ?",
+            [testbench, aid],
             (error, results, fields) => {
                 if (error) reject(error);
+                resolve();
             }
         );
     });
@@ -348,16 +354,35 @@ function insertSubmission(uid, aid) {
 /**
  *
  * @param {number} sid
- * @param {string} grad
+ * @param {string} grade
  * @param {string} feedback
  * @param {'success'|'failed'} testStatus
  * @returns {Promise<void>}
  */
-function gradeSubmission(sid, grad, feedback, testStatus) {
+function gradeSubmission(sid, grade, feedback, testStatus) {
     return new Promise((resolve, reject) => {
         pool.query(
             "UPDATE projectal.submissions SET grade = ?, feedback = ?, testStatus = ? WHERE id = ?;",
-            [grad, feedback, testStatus, sid],
+            [grade, feedback, testStatus, sid],
+            (error, results, fields) => {
+                if (error) reject(error);
+                resolve();
+            }
+        );
+    });
+}
+
+/**
+ *
+ * @param {number} sid
+ * @param {string} filepath
+ * @returns {Promise<void>}
+ */
+function addFileToSubmission(sid, filepath) {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            "UPDATE projectal.submissions SET filepath = ? WHERE id = ?",
+            [filepath, sid],
             (error, results, fields) => {
                 if (error) reject(error);
                 resolve();
@@ -367,6 +392,8 @@ function gradeSubmission(sid, grad, feedback, testStatus) {
 }
 
 module.exports = {
+    addFileToSubmission,
+    changeTestbenchPathOfAssignment,
     getAssignment,
     getAssignments,
     getAllowedFileformats,
