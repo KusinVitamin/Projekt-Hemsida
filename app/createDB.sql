@@ -3,7 +3,8 @@ USE `ProjectAl`;
 
 CREATE TABLE IF NOT EXISTS `Courses` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `name` text NOT NULL
+  `name` text NOT NULL,
+  `code` varchar(10) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `Assignments` (
@@ -20,7 +21,9 @@ CREATE TABLE IF NOT EXISTS `Submissions` (
   `user` int NOT NULL,
   `grade` text,
   `feedback` text,
-  `filepath` varchar(1024) NOT NULL
+  `filepath` varchar(1024),
+  `testStatus` varchar(15) NOT NULL DEFAULT 'Pending',
+  `dateAdded` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS `AllowedFileFormats` (
