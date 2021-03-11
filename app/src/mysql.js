@@ -6,7 +6,7 @@ const pool = require("./dbpool");
 /**
  * Get assignments
  * @param {number} courseId
- * @returns {Promise<Array<object>>}
+ * @returns {Promise<Array<{id:number, course:number, name:string, duedate:Date}>>}
  */
 function getAssignments(courseId) {
     return new Promise((resolve, reject) => {
@@ -25,7 +25,7 @@ function getAssignments(courseId) {
  * Get an assignment for course
  * @param {number} courseId
  * @param {number} assignmentId
- * @returns {Promise<object>}
+ * @returns {Promise<{id:number, testsuitePath:string, course:number, name:string, duedate:Date} | undefined>}
  */
 function getAssignment(courseId, assignmentId) {
     return new Promise((resolve, reject) => {
@@ -35,9 +35,10 @@ function getAssignment(courseId, assignmentId) {
             (error, results, fields) => {
                 if (error) reject(error);
                 if (results.length === 0) {
-                    reject("Not found");
+                    resolve(undefined);
+                } else {
+                    resolve(results[0]);
                 }
-                resolve(results[0]);
             }
         );
     });
@@ -47,11 +48,11 @@ function getAssignment(courseId, assignmentId) {
  *
  * @param {number} aid assignmentid
  * @param {number} uid userid
- * @returns {Promise<Array<object>>}
+ * @returns {Promise<Array<{id:number, assignment:number, user:number, grade:string, feedback:string, filepath:string, testStatus:string, dateAdded:Date }| undefined>>}
  */
 function getSubmissions(aid, uid) {
     return new Promise((resolve, reject) => {
-        const sqlQuery = `SELECT id, assignment, user, grade, feedback 
+        const sqlQuery = `SELECT id, assignment, user, grade, feedback, filepath, testStatus, dateAdded 
             FROM projectal.submissions 
             WHERE assignment = ? and user = ?`;
         const params = [aid, uid];
@@ -66,11 +67,11 @@ function getSubmissions(aid, uid) {
  *
  * @param {number} sid submissionid
  * @param {number} uid userid
- * @returns {Promise<object | undefined>}
+ * @returns {Promise<{id:number, assignment:number, user:number, grade:string, feedback:string, filepath:string, testStatus:string, dateAdded:Date } | undefined>}
  */
 function getSubmission(sid, uid) {
     return new Promise((resolve, reject) => {
-        const sqlQuery = `SELECT id, assignment, user, grade, feedback, filepath 
+        const sqlQuery = `SELECT id, assignment, user, grade, feedback, filepath, testStatus, dateAdded 
             FROM projectal.submissions 
             WHERE id = ? and user = ?`;
         const params = [sid, uid];
@@ -91,7 +92,7 @@ function getSubmission(sid, uid) {
 /**
  *
  * @param {number} cid courseid
- * @returns {Promise<Array<object>>}
+ * @returns {Promise<Array<{uid:number, email:string}>>}
  */
 function getCourseParticipants(cid) {
     return new Promise((resolve, reject) => {
@@ -131,7 +132,7 @@ function insertAssignment(courseId, name, duedate) {
 /**
  * Get allowed fileformats for uploaded files in assignments
  * @param {number} assignmentId
- * @returns {Promise<Array<object>>}
+ * @returns {Promise<Array<{id:number, extension:string}>>}
  */
 function getAllowedFileformats(assignmentId) {
     return new Promise((resolve, reject) => {
@@ -140,7 +141,10 @@ function getAllowedFileformats(assignmentId) {
             { aid: assignmentId },
             (error, results, fields) => {
                 if (error) reject(error);
-                if (results.length === 0) resolve([]);
+                if (results.length === 0) {
+                    resolve([]);
+                    return;
+                }
 
                 var allowedFileformats = [];
                 results.forEach(row => {
@@ -156,19 +160,24 @@ function getAllowedFileformats(assignmentId) {
  *
  * @param {number} aid
  * @param {string} format
+ * @returns {Promise<number>} Id of inserted allowed fileformat
  */
 function insertAllowedFileformats(aid, format) {
     return new Promise((resolve, reject) => {
         pool.query("INSERT INTO projectal.allowedFileformats VALUES (?,?)", [aid, format], (error, results, fields) => {
             if (error) reject(error);
-            resolve(results);
+            resolve(results.insertId);
         });
     });
 }
 
+/**
+ *
+ * @returns {Promise<Array<{id:number, username:string, email:string}>>}
+ */
 function getUsers() {
     return new Promise((resolve, reject) => {
-        pool.query("SELECT id, email FROM projectal.users", (error, results, fields) => {
+        pool.query("SELECT id, username, email FROM projectal.users", (error, results, fields) => {
             if (error) reject(error);
             resolve(results);
         });
@@ -176,26 +185,30 @@ function getUsers() {
 }
 
 /**
- * Gets the LTU username of a student, given his id
+ * Gets the userdetails of a student, given his id
  * @param {number} uid
- * @returns {Promise<object>}
+ * @returns {Promise<{id:number, username:string, email:string} | undefined>}
  */
 function getUser(uid) {
     return new Promise((resolve, reject) => {
-        pool.query("SELECT username, email FROM projectal.users WHERE id=?", uid, (error, results, fields) => {
+        pool.query("SELECT id, username, email FROM projectal.users WHERE id=?", uid, (error, results, fields) => {
             if (error) reject(error);
-            if (results.length === 0) reject("User not found");
-            resolve(results[0]);
+            if (results.length === 0) {
+                resolve(undefined);
+            } else {
+                resolve(results[0]);
+            }
         });
     });
 }
 
 /**
  * Gets courses
+ * @returns {Promise<Array<{id:number, name:string, code:string>>}}
  */
 function getCourses() {
     return new Promise((resolve, reject) => {
-        pool.query("SELECT id, name FROM projectal.courses", (error, results, fields) => {
+        pool.query("SELECT id, name, code FROM projectal.courses", (error, results, fields) => {
             if (error) reject(error);
             resolve(results);
         });
@@ -205,11 +218,11 @@ function getCourses() {
 /**
  * Gets course
  * @param {number} cid courseid
- * @returns {Promise<object | undefined>}
+ * @returns {Promise<{id:number, name:string, code:string} | undefined>}
  */
 function getCourse(cid) {
     return new Promise((resolve, reject) => {
-        const query = "SELECT id, name FROM projectal.courses WHERE id = ?";
+        const query = "SELECT id, name, code FROM projectal.courses WHERE id = ?";
         const params = [cid];
 
         pool.query(query, params, (error, results, fields) => {
@@ -240,21 +253,32 @@ function addTestbenchPathToSubmission(testbench) {
     });
 }
 
-//Inserts new course
-function insertCourses(name) {
+/**
+ * Inserts new course
+ * @param {string} name Userfriendly name without course code
+ * @param {string} code
+ * @returns {Promise<number>} Id of inserted course
+ */
+function insertCourse(name, code) {
     return new Promise((resolve, reject) => {
-        pool.query("INSERT INTO projectal.courses SET ?", { name }, (error, results, fields) => {
+        pool.query("INSERT INTO projectal.courses SET ?", { name, code }, (error, results, fields) => {
             if (error) reject(error);
-            resolve(results);
+            resolve(results.insertId);
         });
     });
 }
 
+/**
+ *
+ * @param {string} email
+ * @param {string} username
+ * @returns {Promise<number>} Id of inserted user
+ */
 function insertUser(email, username) {
     return new Promise((resolve, reject) => {
         pool.query("INSERT INTO `projectal`.`users` SET ?", { email, username }, (error, results, fields) => {
             if (error) reject(error);
-            resolve(results);
+            resolve(results.insertId);
         });
     });
 }
@@ -265,7 +289,7 @@ function insertUser(email, username) {
  * @param {number} roleId
  * @param {number} userId
  * @param {number} courseId
- *
+ * @returns {Promise<number>} Id of roleclaim
  */
 function assignRole(roleId, userId, courseId) {
     const role = {
@@ -274,9 +298,9 @@ function assignRole(roleId, userId, courseId) {
         course: courseId
     };
     return new Promise((resolve, reject) => {
-        pool.query("INSERT INTO projectal.RoleClaims SET ?", role, (error, results, fields) => {
+        pool.query("INSERT INTO projectal.RoleClaims SET ?", { role }, (error, results, fields) => {
             if (error) reject(error);
-            resolve(results);
+            resolve(results.insertId);
         });
     });
 }
@@ -286,15 +310,16 @@ function assignRole(roleId, userId, courseId) {
  * @param {number} roleId
  * @param {number} userId
  * @param {number} courseId
+ * @returns {Promise<void>}
  */
 function revokeRole(roleId, userId, courseId) {
     return new Promise((resolve, reject) => {
         pool.query(
-            "DELETE FROM projectal.RoleClaims WHERE id=? AND name=? AND course=?",
+            "DELETE FROM projectal.RoleClaims WHERE id=? AND user=? AND course=?",
             [roleId, userId, courseId],
             (error, results, fields) => {
                 if (error) reject(error);
-                resolve(results);
+                resolve();
             }
         );
     });
@@ -305,12 +330,13 @@ function revokeRole(roleId, userId, courseId) {
  * @param {number} uid
  * @param {number} aid
  * @param {string} path
+ * @returns {Promise<number>} Id of inserted submission
  */
-function insertSubmission(uid, aid, path) {
+function insertSubmission(uid, aid) {
     return new Promise((resolve, reject) => {
         pool.query(
-            "INSERT INTO projectal.Submissions (assignment, user, filepath) VALUES (?,?,?)",
-            [aid, uid, path],
+            "INSERT INTO projectal.Submissions (assignment, user, testStatus) VALUES (?,?,?)",
+            [aid, uid, "Pending"],
             (error, results, fields) => {
                 if (error) reject(error);
                 resolve(results.insertId);
@@ -323,16 +349,18 @@ function insertSubmission(uid, aid, path) {
  *
  * @param {number} sid
  * @param {string} grad
- * @param {string} feed
+ * @param {string} feedback
+ * @param {'success'|'failed'} testStatus
+ * @returns {Promise<void>}
  */
-function gradeSubmission(sid, grad, feed) {
+function gradeSubmission(sid, grad, feedback, testStatus) {
     return new Promise((resolve, reject) => {
         pool.query(
-            "UPDATE projectal.submissions SET grade = ?, feedback = ? WHERE id = ?;",
-            [grad, feed, sid],
+            "UPDATE projectal.submissions SET grade = ?, feedback = ?, testStatus = ? WHERE id = ?;",
+            [grad, feedback, testStatus, sid],
             (error, results, fields) => {
                 if (error) reject(error);
-                resolve(results);
+                resolve();
             }
         );
     });
@@ -350,7 +378,7 @@ module.exports = {
     getUsers,
     insertUser,
     insertAssignment,
-    insertCourses,
+    insertCourse,
     insertAllowedFileformats,
     assignRole,
     revokeRole,
