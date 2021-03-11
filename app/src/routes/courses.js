@@ -44,7 +44,6 @@ router.get("/assignment/:aid", async (req, res) => {
         assignment.fileExtensions = fileExtensions;
         assignment.submissions = submissions;
         res.render("assignment", { assignment, title: assignment.name, session: req.session });
-        //res.send(assignment);
     } catch (error) {
         console.log(error.sqlMessage);
         res.send("Something went wrong!");
@@ -72,7 +71,8 @@ router.post("/assignment/:aid/submit", async (req, res) => {
         const submissionPath = path.join(process.env.FILEPATH_SUBMISSIONS, sid.toString());
 
         const uploadedFile = await uploader.saveFile(req, submissionPath, formFieldName);
-        const submissionFile = await submissionProcessor.extractAndValidateFile(uploadedFile, allowedFileformats);
+        const submissionFile =
+            (await submissionProcessor.extractAndValidateFile(uploadedFile, allowedFileformats)) + `${path.sep}.`;
 
         await db.addFileToSubmission(sid, submissionFile);
 
@@ -86,7 +86,7 @@ router.post("/assignment/:aid/submit", async (req, res) => {
 
         res.redirect(`/submission/${sid}`);
     } catch (error) {
-        console.log(error.sqlMessage);
+        console.log(error);
         const message = "Something went wrong!";
         res.render("addSubmission", { message, title: "Create submission", session: req.session });
         return;
@@ -125,10 +125,8 @@ router.get("/submission/:sid", async (req, res) => {
         const uid = req.session.uid;
 
         const submission = await db.getSubmission(sid, uid);
-        submission.statusIsPending = submission.testStatus.toLowerCase() === "pending";
         const assignment = await db.getAssignment(submission.assignment);
         res.render("submission", { submission, assignment, title: "Mina uppgifter", session: req.session });
-        //res.send(submission);
     } catch (error) {
         console.log(error.sqlMessage);
         res.send("Something went wrong!");

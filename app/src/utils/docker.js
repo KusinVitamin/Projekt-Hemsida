@@ -1,7 +1,7 @@
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 const fs = require("fs");
-const { create } = require("domain");
+const path = require("path");
 
 /**
  * @returns {Promise<string>} name of created volume
@@ -101,7 +101,11 @@ async function copyFileToVolume(containerId, src, dest) {
 async function copyFileFromVolume(containerId, src, dest) {
     if (containerId === "" || containerId === undefined) throw "Parameter containerId must be non-empty nor undefined!";
     if (dest === "" || dest === undefined) throw "Parameter dest must be non-empty nor undefined!";
-    //if (!fs.existsSync(src)) throw `File at ${src} does not exist!`;
+
+    const destDir = path.dirname(dest);
+    if (!fs.existsSync(destDir)) {
+        await fs.promises.mkdir(destDir, { recursive: true });
+    }
 
     const command = `docker cp ${containerId}:${src} "${dest}"`;
     await exec(command);

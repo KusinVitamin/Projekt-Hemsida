@@ -29,7 +29,7 @@ async function grade(sid, uid) {
 
     // Docker flow
     const volumeId = await docker.createVolume();
-    const containerId = await docker.createContainer(imageName, { volume: `${volumeId}:/root/src` });
+    const containerId = await docker.createContainer(imageName, { volume: `${volumeId}:${containerPath.root}` });
     await docker.copyFileToVolume(containerId, hostPath.submission, containerPath.upload); // Copy submission
     await docker.copyFileToVolume(containerId, hostPath.testBench, containerPath.root); // Copy testbench
     await docker.startContainer(containerId);
@@ -37,7 +37,7 @@ async function grade(sid, uid) {
     await docker.removeContainer(containerId);
     await docker.removeVolume(volumeId);
 
-    const errors = logParser(logFileHostPath);
+    const errors = logParser(hostPath.logFile);
     if (errors?.length !== 0) {
         return { grade: "U", feedback: errors.join(", ") };
     }

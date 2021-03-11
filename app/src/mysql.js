@@ -84,7 +84,10 @@ function getSubmission(sid, uid) {
             if (results.length === 0) {
                 resolve(undefined);
             } else {
-                resolve(results[0]);
+                let submission = results[0];
+                submission.testFailed = submission.testStatus.toLowerCase() === "failed";
+                submission.testIsPending = submission.testStatus.toLowerCase() === "pending";
+                resolve(submission);
             }
         });
     });

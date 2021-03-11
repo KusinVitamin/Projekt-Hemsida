@@ -19,7 +19,7 @@ async function create(aid, testbench) {
         // Kopiera testBench till root/testbench
         await fse.copy(testbench, testbenchGenericPath, { overwrite: true });
 
-        resolve(testbenchRoot);
+        resolve(testbenchRoot + path.sep + ".");
     });
 
     //? Lägg till testbench till projektfil *.xpr. Ej nödvändigt om generiskt namn på testbench används.

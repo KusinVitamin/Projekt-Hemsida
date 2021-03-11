@@ -11,6 +11,13 @@
         <p>
             You submission will be graded shortly.
         </p>
+        {{else if submission.testFailed}}
+        <p>
+            Status: <span class="text-danger">failed</span>
+        </p>
+        <p>
+            Something went wrong when grading of your submission.
+        </p>
         {{else}}
         <p>
             Grade: {{submission.grade}}
