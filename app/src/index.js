@@ -4,6 +4,7 @@ const vivado = require("./vivado");
 const exphbs = require("express-handlebars");
 const logger = require("./middleware/logger").logger;
 const methodOverride = require("method-override");
+const session = require("express-session");
 require("dotenv").config();
 
 const app = express();
@@ -11,6 +12,15 @@ const app = express();
 // Handlebars Middleware
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
+
+// Session Middleware
+app.use(
+    session({
+        secret: "ProjectAl",
+        resave: false,
+        saveUninitialized: true
+    })
+);
 
 // Middleware
 app.use(express.json());

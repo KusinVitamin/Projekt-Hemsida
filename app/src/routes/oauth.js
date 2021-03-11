@@ -6,7 +6,6 @@ const allowedDomains = ["student.ltu.se", "ltu.se"];
 
 router.get("/google/signin", async (req, res) => {
     const token = req.query.token;
-    const redirectUrl = req.query.redirect;
     if (token === undefined) {
         res.status(400);
         res.send("Bad Request: token is missing");
@@ -15,23 +14,27 @@ router.get("/google/signin", async (req, res) => {
 
     const verification = await oauth.verify(token, allowedDomains);
     if (!verification.authorized) {
+        req.session.signedIn = false;
         res.status(403);
         res.send("Forbidden");
         return;
     }
 
-    // TODO Check redirectUri
-    // TODO Set session signedIn status to true
-    if (redirectUrl === undefined) {
+    if (req.session.signedIn) {
+        // User already signed in, no action required
         res.status(200);
-        res.send(`Welcome ${verification.username}`);
+        res.send();
     } else {
-        res.redirect(redirectUrl);
+        // User authenticated, but no active session. Create session
+        req.session.signedIn = true;
+        res.status(201);
+        res.send(`Welcome ${verification.username}`);
     }
 });
 
 router.get("/signout", async (req, res) => {
-    // TODO Clear session or set signedIn status to false
+    req.session.signedIn = false;
+    res.status(200);
     res.send("You're now signed out");
 });
 

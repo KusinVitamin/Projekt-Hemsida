@@ -9,7 +9,7 @@ const path = require("path");
 router.get("/", async (req, res) => {
     try {
         const courses = await db.getCourses();
-        res.render("index", { courses, title: "Mina kurser" });
+        res.render("index", { courses, title: "Mina kurser", session: req.session });
     } catch (error) {
         console.log(error.sqlMessage);
         res.render("error", { error: "Something went wrong!" });
@@ -65,7 +65,7 @@ router.get("/:cid/:aid/:sid", async (req, res) => {
 // POST /courses
 router.post("/", async (req, res) => {
     try {
-        await db.insertCourses(req.body.name);
+        await db.insertCourse(req.body.name, req.body.code);
         res.send("200 OK");
     } catch (error) {
         console.log(error.sqlMessage);

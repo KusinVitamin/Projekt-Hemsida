@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <meta name="google-signin-client_id"
+        content="862709178494-q4vb0icbotbclb6r77nkm6dppug8ihac.apps.googleusercontent.com">
+
     <title>{{title}}</title>
 
     <!-- Bootstrap CSS CDN -->
@@ -26,10 +29,18 @@
 
             <ul class="list-unstyled components">
                 <li>
-                    <a href="#">
+                    <div class="g-signin2 d-none" data-onsuccess="onSignIn"></div>
+                    {{#if session.signedIn}}
+                    <a href="#" onclick="signOut()">
                         <i class="glyphicon glyphicon-user"></i>
-                        Account
+                        Sign out
                     </a>
+                    {{else}}
+                    <a href="#" onclick="signIn()">
+                        <i class="glyphicon glyphicon-user"></i>
+                        Sign in
+                    </a>
+                    {{/if}}
                 </li>
                 <li>
                     <a href="Hemsida.html">
@@ -40,8 +51,6 @@
                         <i class="glyphicon glyphicon-book"></i>
                         Courses
                     </a>
-                </li>
-
                 </li>
             </ul>
         </nav>
@@ -55,6 +64,10 @@
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Google signin -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/js/oauth.js"></script>
 </body>
 
 </html>
