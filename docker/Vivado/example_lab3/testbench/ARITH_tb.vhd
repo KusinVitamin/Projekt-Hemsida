@@ -38,16 +38,16 @@ begin
     -- 4+3=7 KORREKT
     A <= "0100"; B <= "0011"; Sub <= '0';
     wait for PERIOD;
-    assert R = "0111";
-    assert V = '0';
-    assert C = '0';
+    assert R = "0111" report "4+3, Incorrect sum" severity error;
+    assert V = '0' report "V error" severity error;
+    assert C = '0' report "C error" severity error;
     
     -- 7+2 = -7 INKORREKT
     A <= "0111"; B <= "0010"; Sub <= '0';
     wait for PERIOD;
-    assert R = "1001";
-    assert V = '0' report "V error" severity error; -- C=1 TEST FÖR FEL;
-    assert C = '1' report "C error" severity error; -- C=0 TEST FÖR FEL;
+    assert R = "1001" report "7+2, Incorrect sum" severity error;
+    assert V = '1' report "V error" severity error;
+    assert C = '0' report "C error" severity error;
     
     A <= "1000"; B <= "1000"; Sub <= '0';
     wait for PERIOD;
@@ -64,16 +64,16 @@ begin
     -- 7-2=5 KORREKT
     A <= "0111"; B <= "0010"; Sub <= '1';
     wait for PERIOD;
-    assert R = "0101";
-    assert V = '0';
-    assert C = '1';
+    assert R = "0101" report "7-2, Incorrect sum" severity error;
+    assert V = '0' report "V error" severity error;
+    assert C = '1' report "C error" severity error;
     
     -- 0-(-8)=-8 INKORREKT
     A <= "0000"; B <= "1000"; Sub <= '1';
     wait for PERIOD;
-    assert R = "1000";
-    assert V = '1';
-    assert C = '0';
+    assert R = "1000" report "0-(-8), Incorrect sum" severity error;
+    assert V = '1' report "V error" severity error;
+    assert C = '0' report "C error" severity error;
 
     -- put breakpoint to line below
     wait;
