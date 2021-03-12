@@ -115,7 +115,7 @@ router.post("/assignment/:aid/testbench/change", async (req, res) => {
         testbenchSavePath = await vivadoTestFactory.changeTestbench(aid, testbench);
     }
     await db.changeTestbenchPathOfAssignment(aid, testbenchSavePath);
-    res.redirect(`/assignment/${aid}/testbench/change`);
+    res.redirect(`/assignment/${aid}`);
 });
 
 // Get an submission by id
@@ -164,8 +164,9 @@ router.post("/new/course/", async (req, res) => {
 
     let success = false;
     let message = "";
+    let cid;
     try {
-        await db.insertCourse(name, code);
+        cid = await db.insertCourse(name, code);
         success = true;
     } catch (error) {
         console.log(error.sqlMessage);
@@ -173,8 +174,9 @@ router.post("/new/course/", async (req, res) => {
 
     if (!success) {
         message = "Something went wrong!";
+        res.render("addCourse", { message, title: "Add new course", session: req.session });
     }
-    res.render("addCourse", { message, title: "Add new course", session: req.session });
+    res.redirect(`/${cid}`);
 });
 
 module.exports = router;
