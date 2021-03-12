@@ -4,16 +4,15 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     background: #fafafa;
 }
 
 p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #999;
 }
 
 a,
@@ -60,10 +59,7 @@ span {
     align-items: stretch;
 }
 
-
 #sidebar {
-    min-width: 80px;
-    max-width: 80px;
     color: #fff;
     background: #133756;
     text-align: center;
@@ -74,9 +70,7 @@ span {
     display: block;
     font-weight: bold;
     font-size: 1.8em;
-    
 }
-
 
 #sidebar ul li a {
     padding: 20px 10px;
@@ -96,7 +90,6 @@ span {
     padding: 10px !important;
 }
 
-
 #sidebar .sidebar-header {
     padding: 20px;
     background: #133756;
@@ -112,15 +105,11 @@ span {
     border-bottom: 1px solid #47748b;
 }
 
-
-
 #sidebar ul li a:hover {
     display: block;
-    color: #7386D5;
+    color: #7386d5;
     background: #fff;
 }
-
-
 
 ul ul a {
     font-size: 0.9em !important;
@@ -142,7 +131,7 @@ ul.CTAs a {
 
 a.download {
     background: #fff;
-    color: #7386D5;
+    color: #7386d5;
 }
 
 a.article,
@@ -155,35 +144,31 @@ a.article:hover {
     Cards STYLE
 ----------------------------------------------------- */
 
-.card{
+.card {
     border-style: ridge;
     padding: 10px;
 }
 
-.card-title{
+.card-title {
     font-weight: bold;
-    font-size: 15px
+    font-size: 15px;
 }
 
-.card-text{
+.card-text {
     font-weight: 600;
 }
 
-.card-text2{
+.card-text2 {
     font-weight: 600;
     color: black;
 }
 
-
 .card-header {
     font-size: 20px;
     font-weight: bold;
-    
 }
 
-
-.card-body{
-    
+.card-body {
 }
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -195,9 +180,6 @@ a.article:hover {
     min-height: 100vh;
     transition: all 0.3s;
 }
-
-
-
 
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -254,87 +236,81 @@ a.article:hover {
     TABLES
 ----------------------------------------------------- */
 
-.table-item{
-    cursor:pointer;
-
+.table-item {
+    cursor: pointer;
 }
 
-.table-item:hover{
+.table-item:hover {
     text-decoration: underline;
 }
-
 
 /* ---------------------------------------------------
     BUTTONS
 ----------------------------------------------------- */
 
-.submit{
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  margin-left: -250%;
-  cursor: pointer;
-  background-color: #133756;
-    
+.submit {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-left: -250%;
+    cursor: pointer;
+    background-color: #133756;
 }
 
-.newtest{
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  background-color: #133756;
-    
+.newtest {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #133756;
 }
 
-.assignment{
-border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  margin-left: -400%;
-  cursor: pointer;
-  background-color: #133756;
+.assignment {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-left: -400%;
+    cursor: pointer;
+    background-color: #133756;
 }
 
-.course{
-border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  margin-left: -300%;
-  cursor: pointer;
-  background-color: #133756;
+.course {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-left: -300%;
+    cursor: pointer;
+    background-color: #133756;
 }
-
 
 /* ---------------------------------------------------
     Glyphicon
 ----------------------------------------------------- */
 
-.glyphicon-ok { 
+.glyphicon-ok {
     color: green;
 }
 
-.glyphicon-remove { 
+.glyphicon-remove {
     color: red;
 }
-

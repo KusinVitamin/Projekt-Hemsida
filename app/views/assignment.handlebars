@@ -7,33 +7,32 @@
 </nav>
 
 
-<div class="card w-75">
-    <div class="card-header">
-        Submissions
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Betyg</th>
-                <th>Status</th>
-                <th>Feedback</th>
-                <th>Inlämningsdatum</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each assignment.submissions}}
-            <tr>
-                <td>{{this.id}}</td>
-                <td>{{this.grade}}</td>
-                <td>{{this.testStatus}}</td>
-                <td>{{this.feedback}}</td>
-                <td>{{this.dateAdded}}</td>
-                <td class="link-primary">
-                    <a href="/submission/{{this.id}}">Detaljer</a>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+<div class="card-header">
+    Submissions
 </div>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Betyg</th>
+            <th>Status</th>
+            <th>Feedback</th>
+            <th>Inlämningsdatum</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each assignment.submissions}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.grade}}</td>
+            <td>{{this.testStatus}}</td>
+            <td>{{this.feedback}}</td>
+            <td>{{this.dateAdded}}</td>
+            <td class="link-primary">
+                <a href="/submission/{{this.id}}">Detaljer</a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
