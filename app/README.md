@@ -34,6 +34,7 @@ OAUTH_GOOGLE_CLIENT_ID=<CLIENT-ID>
 FILEPATH_SUBMISSIONS=<FILEPATH>
 FILEPATH_USER_DEFINED_TESTS=<FILEPATH>
 FILEPATH_TEST_TEMPLATES=<FILEPATH>
+FILEPATH_TEMP=<FILEPATH>
 ```
 
 3. Create database schema, the schema for MySQL is avaliable in `createDB.sql`.
@@ -60,7 +61,7 @@ npm run start:dev
 │   └── utils
 ├── tests           # Unit tests
 ├── views           # Handlebars views
-│   └── layouts
+│   └── layouts     # Layouts used by handlebars
 ├── .env            # Enviroment variables
 ├── package.json
 └── README.md
