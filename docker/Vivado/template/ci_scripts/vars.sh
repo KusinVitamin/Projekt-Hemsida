@@ -1,0 +1,2 @@
+CI_PROJECT="lab"
+CI_TESTBENCH="lab_tb"
