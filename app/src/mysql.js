@@ -68,7 +68,7 @@ function getSubmissions(aid, uid) {
  *
  * @param {number} sid submissionid
  * @param {number} uid userid
- * @returns {Promise<{id:number, assignment:number, user:number, grade:string, feedback:string, filepath:string, testStatus:string, dateAdded:Date } | undefined>}
+ * @returns {Promise<{id:number, assignment:number, user:number, grade:string, feedback:string, filepath:string, testStatus:string, dateAdded:Date, testFailed:boolean, testIsPending:boolean } | undefined>}
  */
 function getSubmission(sid, uid) {
     return new Promise((resolve, reject) => {
