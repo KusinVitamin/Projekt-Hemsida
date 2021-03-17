@@ -6,4 +6,4 @@ This is a project for the LTU course D0020E where we were assigned to create a s
 
 ### Where can I find further documentation?
 
-More specific documentation can be found in the **app* and **docker/Vivado** folders, both in the form of readmes as well as JavaScript comments in the files themselves
+More specific documentation can be found in the **app** and **docker/Vivado** folders, both in the form of readmes as well as JavaScript comments in the files themselves
